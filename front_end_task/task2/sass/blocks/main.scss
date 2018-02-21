@@ -1,0 +1,266 @@
+.main-wrap {
+  width: 1600px;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  flex-wrap: wrap;
+
+  .images {
+    position: relative;
+    margin-right: 200px;
+    padding-bottom: 200px;
+    height: 700px;
+    width: 700px;
+
+    display: flex;
+    align-items: center;
+
+    .image-circle {
+      width: 700px;
+      height: 700px;
+      border-radius: 100%;
+      background-image: url("../images/new-zealand-12.jpg");
+      background-repeat: no-repeat;
+      background-position: 0% 100%;
+
+    }
+
+    .image-rectangle {
+      width: 700px;
+      height: 500px;
+      background-image: url("../images/new-zealand-22.jpg");
+      background-repeat: no-repeat;
+      background-position: 5% 0;
+    }
+
+    .image-square {
+      width: 700px;
+      height: 700px;
+      background-image: url("../images/new-zealand-32.jpg");
+      background-repeat: no-repeat;
+      background-position: 40% 100%;
+    }
+
+  }
+
+  .images:nth-child(2n) {
+    margin-right: 0;
+  }
+
+  .images-triangle {
+    position: relative;
+    margin-top: 45px;
+    width: 700px;
+    height: 600px;
+    z-index: 2;
+
+    .triangle1 {
+      pointer-events: none;
+      position: absolute;
+      z-index: 1;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 600px 350px 0 0;
+      border-color: #27A4B1 transparent transparent transparent;
+    }
+
+    .triangle2 {
+      pointer-events: none;
+      position: absolute;
+      z-index: 1;
+      width: 0;
+      height: 0;
+      left: 350px;
+      border-style: solid;
+      border-width: 0 350px 600px 0;
+      border-color: transparent #27A4B1 transparent transparent;
+    }
+
+    .image-triangle {
+      position: absolute;
+      left: 0;
+      width: 700px;
+      height: 600px;
+      background-image: url("../images/sun-rise.jpg");
+      background-repeat: no-repeat;
+      background-position: 33% 100%;
+    }
+  }
+}
+
+@media only screen and (max-width: 1649px) {
+
+  .main-wrap {
+    width: 1310px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 2%;
+
+    .images {
+      margin-right: 4%;
+      height: 600px;
+      width: 600px;
+      padding-bottom: 100px;
+
+      .images:nth-child(2n) {
+        margin-right: 0;
+      }
+
+      .image-circle {
+        width: 500px;
+        height: 500px;
+      }
+
+      .image-rectangle {
+        width: 500px;
+        height: 300px;
+      }
+
+      .image-square {
+        width: 500px;
+        height: 500px;
+      }
+    }
+
+    .images-triangle {
+      display: flex;
+      width: 500px;
+      height: 400px;
+      margin-top: 85px;
+
+      .triangle1 {
+        border-width: 400px 250px 0 0;
+      }
+
+      .triangle2 {
+        border-width: 0 250px 400px 0;
+        left: 250px;
+      }
+
+      .image-triangle {
+        width: 500px;
+        height: 400px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .main-wrap {
+    max-width: 900px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 2%;
+
+    .images {
+      margin-right: 4%;
+      height: 400px;
+      width: 400px;
+      padding-bottom: 50px;
+
+      .images:nth-child(2n) {
+        margin-right: 0;
+      }
+
+      .image-circle {
+        width: 300px;
+        height: 300px;
+      }
+
+      .image-rectangle {
+        width: 300px;
+        height: 200px;
+        background-position: 15% 30%;
+      }
+
+      .image-square {
+        width: 300px;
+        height: 300px;
+        background-position: 60% 100%;
+      }
+    }
+
+    .images-triangle {
+      display: flex;
+      width: 300px;
+      height: 250px;
+      margin-top: 65px;
+
+      .triangle1 {
+        border-width: 250px 150px 0 0;
+      }
+
+      .triangle2 {
+        border-width: 0 150px 250px 0;
+        left: 150px;
+      }
+
+      .image-triangle {
+        width: 300px;
+        height: 250px;
+        background-position: 40% 30%;
+      }
+    }
+  }
+}
+
+
+@media only screen and (max-width: 768px) {
+  .main-wrap {
+    width: 400px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 0;
+    display: flex;
+    flex-direction: row;
+
+    .images {
+      margin-right: 0;
+      height: 400px;
+      width: 400px;
+      padding-bottom: 0;
+      margin-bottom: 25px;
+      display: flex;
+
+      .image-circle {
+        width: 400px;
+        height: 400px;
+      }
+
+      .image-rectangle {
+        width: 400px;
+        height: 400px;
+        background-position: 15% 30%;
+      }
+
+      .image-square {
+        width: 400px;
+        height: 400px;
+        background-position: 60% 100%;
+      }
+    }
+
+    .images-triangle {
+      display: flex;
+      width: 400px;
+      height: 400px;
+      margin-top: 0;
+
+      .triangle1 {
+        border-width: 400px 200px 0 0;
+      }
+
+      .triangle2 {
+        border-width: 0 200px 400px 0;
+        left: 200px;
+      }
+
+      .image-triangle {
+        width: 400px;
+        height: 400px;
+        background-position: 40% 30%;
+      }
+    }
+  }
+}

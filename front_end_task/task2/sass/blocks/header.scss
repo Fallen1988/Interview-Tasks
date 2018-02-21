@@ -1,0 +1,40 @@
+.header {
+  min-height: 450px;
+  text-align: center;
+
+  .tittle {
+    padding-top: 120px;
+
+    .tittle-text {
+      margin: 0;
+
+      font-size: 72px;
+      font-weight: bold;
+      color: rgb(243,255,226);
+    }
+
+  }
+
+  .tittle-content {
+    padding-top: 75px;
+
+    p {
+      font-size: 24px;
+      line-height: 36px;
+      color: rgb(243,255,226);
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .header {
+    min-height: 300px;
+
+    .tittle {
+      padding-top: 20px;
+    }
+  }
+}
+
+
+
