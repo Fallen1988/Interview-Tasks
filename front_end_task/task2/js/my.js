@@ -65,7 +65,7 @@ function openOverlay(e) {
     overlay.append(tittle);
     tittle.classList.add('overlay-tittle');
 
-    history.pushState(items, 'title','?overlay=' + image.src.split('/')[5]);
+    history.pushState(items, 'title','?overlay=' + image.src.split('/')[4]);
     let oldHref = document.location.href;
 }
 

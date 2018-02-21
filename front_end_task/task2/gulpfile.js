@@ -1,51 +1,83 @@
-const gulp = require("gulp");
-const sass = require("gulp-sass");
-const browserSync = require('browser-sync').create();
-//const minify = require('gulp-minifier');
-//var minify = require("gulp-csso");
-//var rename = require("gulp-rename");
+var gulp         = require('gulp'), // Подключаем Gulp
+    sass         = require('gulp-sass'), //Подключаем Sass пакет,
+    browserSync  = require('browser-sync'), // Подключаем Browser Sync
+    concat       = require('gulp-concat'), // Подключаем gulp-concat (для конкатенации файлов)
+    uglify       = require('gulp-uglifyjs'), // Подключаем gulp-uglifyjs (для сжатия JS)
+    babel        = require('gulp-babel'),
+    cssnano      = require('gulp-cssnano'), // Подключаем пакет для минификации CSS
+    rename       = require('gulp-rename'), // Подключаем библиотеку для переименования файлов
+    del          = require('del'), // Подключаем библиотеку для удаления файлов и папок
+    cache        = require('gulp-cache'), // Подключаем библиотеку кеширования
+    autoprefixer = require('gulp-autoprefixer'),// Подключаем библиотеку для автоматического добавления префиксов
+    imagemin     = require('gulp-imagemin'), // Подключаем библиотеку для работы с изображениями
+    pngquant     = require('imagemin-pngquant');// Подключаем библиотеку для работы с png
 
-gulp.task("sass", function () {
-    gulp.src("sass/style.scss")      //звідки ми все починаємо
+gulp.task('sass', function(){
+    return gulp.src('sass/style.scss')
         .pipe(sass())
-        .pipe(gulp.dest("css"))     // в яку папку зберегти результат
-        // .pipe(minify())
-        // .pipe(rename("style.min.css"))
-        // .pipe(gulp.dest("build/css"))
-        .pipe(browserSync.reload({
-            stream: true
-        }));
+        .pipe(autoprefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
+        .pipe(gulp.dest('css'))
+        .pipe(browserSync.reload({stream: true}))
 });
 
-gulp.task('watch', ['browserSync'], function () {
-    gulp.watch('sass/**/*.scss', ['sass']);
-    gulp.watch("*.html").on("change", browserSync.reload);
-    // Other watchers
-});
-
-gulp.task('browserSync', function () {
-    browserSync.init({
+gulp.task('browser-sync', function() {
+    browserSync({
         server: {
-            baseDir: "./"
-        }
-    })
+            baseDir: './dist'
+        },
+        notify: false
+    });
 });
 
-/*
-gulp.task('example', function() {
-    return gulp.src('example/src/!**!/!*').pipe(minify({
-        minify: true,
-        minifyHTML: {
-            collapseWhitespace: true,
-            conservativeCollapse: true,
-        },
-        minifyJS: {
-            sourceMap: true
-        },
-        minifyCSS: true,
-        getKeptComment: function (content, filePath) {
-            let m = content.match(/\/\*![\s\S]*?\*\//img);
-            return m && m.join('\n') + '\n' || '';
-        }
-    })).pipe(gulp.dest('example/dest'));
-});*/
+gulp.task('uglify', function(){
+    gulp.src('js/*.js')
+        .pipe(babel({
+            presets: ['es2015']
+        }))
+        .pipe(uglify().on('error', function(e){
+            console.log(e);
+        }))
+        .pipe(rename({suffix: '.min'}))
+        .pipe(gulp.dest('dist/js'));
+});
+
+gulp.task('css-min', ['sass'], function() {
+    return gulp.src('css/style.css')
+        .pipe(cssnano())
+        .pipe(rename({suffix: '.min'}))
+        .pipe(gulp.dest('dist/css'));
+});
+
+gulp.task('watch', ['build', 'browser-sync'], function() {
+    gulp.watch('sass/**/*.sass', ['sass']);
+    gulp.watch('*.html', browserSync.reload);
+    gulp.watch('js/**/*.js', browserSync.reload);
+});
+
+gulp.task('clean', function() {
+    return del.sync('dist');
+});
+
+gulp.task('img', function() {
+    return gulp.src('images/**/*')
+        .pipe(cache(imagemin({
+            interlaced: true,
+            progressive: true,
+            svgoPlugins: [{removeViewBox: false}],
+            use: [pngquant()]
+        })))
+        .pipe(gulp.dest('dist/images'));
+});
+
+gulp.task('build', ['clean', 'css-min', 'uglify', 'img'], function() {
+
+    var buildHtml = gulp.src('*.html')
+        .pipe(gulp.dest('dist'));
+
+});
+
+gulp.task('clear', function () {
+    return cache.clearAll();
+});
+
+gulp.task('default', ['watch']);
