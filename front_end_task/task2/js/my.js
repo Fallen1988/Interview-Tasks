@@ -22,9 +22,6 @@ const items = [
     }
 ];
 
-const overlay = document.querySelector('.overlay');
-const close = document.querySelector('.close');
-
 function addImage(obj) {
     if (obj.type == 'triangle') {
         const html = `
@@ -74,5 +71,10 @@ function closeOverlay () {
     history.back();
 }
 
-document.querySelector('.main-wrap').addEventListener('click', openOverlay);
+
+const overlay = document.querySelector('.overlay');
+const close = document.querySelector('.close');
+const image = document.querySelectorAll('.main-wrap .image');
+
+image.forEach( img => img.addEventListener('click', openOverlay));
 close.addEventListener('click', closeOverlay );
